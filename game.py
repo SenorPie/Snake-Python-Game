@@ -9,7 +9,7 @@ def game():
 
     width, height = 600, 400
     screen = pygame.display.set_mode((width, height))
-    player = Player(position=(100, 100), size=(10, 10), color=Color(255, 0, 0), velocity=10)
+    player = Player(position=(100, 100), size=(10, 10), color=Color(255, 0, 0), velocity=1)
 
     while True:
         screen.fill((0, 0, 0))
@@ -18,9 +18,19 @@ def game():
 
             if event.type == pygame.KEYDOWN:
                 keys = pygame.key.get_pressed()
+                if keys[pygame.K_UP]:
+                    player.player_direction = "up"
+                
                 if keys[pygame.K_DOWN]:
-                    player.move_down()
+                    player.player_direction = "down"
 
+                if keys[pygame.K_RIGHT]:
+                    player.player_direction = "right"
+                
+                if keys[pygame.K_LEFT]:
+                    player.player_direction = "left"
+
+        player.move_player()
         player.draw_player(game_window=screen)
         pygame.display.flip()
         clock.tick(60)
